@@ -12,9 +12,8 @@
             endwhile;
           endif;
           ?>
-
+          <?php next_posts_link('Trang kế tiếp'); ?>
         </div><!-- /.blog-main -->
-
         <?php get_sidebar(); ?>
 
       </div><!-- /.row -->

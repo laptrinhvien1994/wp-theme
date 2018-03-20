@@ -1,4 +1,4 @@
-<?php get_header(); ?>
+<?php get_header('file2'); ?>
 
       <div class="row">
 
