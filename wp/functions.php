@@ -17,4 +17,23 @@
 	add_action('wp_print_styles', 'add_Google_font');
 
 	// add_theme_support('title-tag');
-?>
+
+
+	function custom_settings_add_menu(){
+		add_menu_page('Custom settings', 'new settings', 'manage_options', 'custom_settings_page','custom_settings_page', null, 99);
+	}
+
+	add_action('admin_menu', 'custom_settings_add_menu');
+
+	function custom_settings_page(){ ?>
+		<div class="wrap">
+			<h1> Custom settings </h1>
+			<form method="post" action="options.php">
+				<?php
+					settings_fields('section');
+					do_settings_sections('theme-options');
+					submit_button();
+				 ?>
+			</form>
+		</div>
+	<?php }
