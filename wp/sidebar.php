@@ -13,7 +13,7 @@
             <h4>Elsewhere</h4>
             <ol class="list-unstyled">
               <li><a href="#">GitHub</a></li>
-              <li><a href="#">Twitter</a></li>
+              <li><a href="#"><?php echo get_option('id_field'); ?></a></li>
               <li><a href="#">Facebook</a></li>
             </ol>
           </div>

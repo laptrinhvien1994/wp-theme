@@ -18,33 +18,35 @@
 
 	// add_theme_support('title-tag');
 
-
-	// function custom_settings_add_menu(){
-	// 	add_menu_page('Custom settings', 'new settings', 'manage_options', 'custom_settings_page','custom_settings_page', null, 99);
-	// }
-
 	add_action('admin_menu', function(){
-		add_menu_page('Custom settings', 'new settings', 'manage_options', 'slug_name','custom_settings_page', null, 99);
+		add_menu_page('Tieu de cua trang', 'Tieu de menu', 'manage_options', 'option-slug', function(){
+			?>
+			<h1>Nhap tieu de</h1>
+			<p>Nhap mot vai thong tin khac nua</p>
+			<form method="post" action="options.php">
+			<?php
+           settings_fields( 'option-slug' );
+           do_settings_sections( 'option-slug' );      
+           submit_button(); 
+           echo '</form>';
+		}, '', 99);
 	});
 
-	function custom_settings_page(){ ?>
-		<div class="wrap">
-			<h1> Custom settings </h1>
-			<form method="post" action="options.php">
-				<?php
-					settings_fields('section');
-					do_settings_sections('slug_name');
-					submit_button();
-				 ?>
-			</form>
-		</div>
-	<?php }
 
-	function add_custom(){
-		settings_fields('group-name')
-		add_settings_section('id_section', 'Nhập vào title', null, 'general');
-		add_settings_field('id_field', 'Nhập vào giá trị gì đó', null, 'general', 'section', null);
-		register_setting('group-name', )
-	}
+	add_action('admin_init', function(){
+		//add section vào page
+		add_settings_section('id_section', 'Tieu de cua section', function(){
+			?>
+			Noi dung cua section
+			<?php
+		}, 'option-slug');
+		//add field vào section
+		add_settings_field('id_field', 'Tieu de cua field', function(){
+			?>
+			<input name="id_field" id="id_field" value="<?php echo get_option('id_field'); ?>"></input>
+			<?php
+		}, 'option-slug', 'id_section', null);
+		//đăng ký
+		register_setting('option-slug', 'id_field');
+	});
 
-	add_action('admin_init', 'add_custom');
