@@ -1,21 +1,14 @@
 <?php get_header(); ?>
 
-      <div class="row">
+<div class="row">
 
-        <div class="col-sm-8 blog-main">
+  <div class="col-sm-8 blog-main">
+    <?php
+    get_template_part('content');
+    ?>
+  </div><!-- /.blog-main -->
+  <?php get_sidebar(); ?>
 
-          <?php
-          if(have_posts()):
-            while(have_posts()):
-              the_post();
-              get_template_part('contentz', get_post_format());
-            endwhile;
-          endif;
-          ?>
-          <?php next_posts_link('Trang kế tiếp'); ?>
-        </div><!-- /.blog-main -->
-        <?php get_sidebar(); ?>
-
-      </div><!-- /.row -->
+</div><!-- /.row -->
 
 <?php get_footer(); ?>
