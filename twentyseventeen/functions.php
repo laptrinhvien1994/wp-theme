@@ -636,3 +636,13 @@ function create_custom_taxonomies(){
 }
 
 add_action('init', 'create_custom_taxonomies', 0);
+
+
+//Hiển thị template đang được dùng cho trang
+add_action('wp_head', 'show_template');
+function show_template() {
+	if( current_user_can( 'manage_options' ) ){
+		global $template;
+    	echo basename($template);
+	}
+}
