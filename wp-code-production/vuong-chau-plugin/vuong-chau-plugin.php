@@ -257,33 +257,40 @@
 			$posts->the_post();
 			//$content = $content.'<br/>';
 			//$content = $content.'<h2>'.get_the_title().'</h2>';
+			$id = get_the_ID();
 			$the_post_name = get_the_title();
 			$the_permalink = get_the_permalink();
-			$the_date = get_the_time();
+			$thumbnail_size = array('width' => 400, 'height' => 400);
+			$the_thumbnail = get_the_post_thumbnail($id,array($thumbnail_size['width'], $thumbnail_size['height']),array('alt' => 'Nhập thông tin'));
+			$default_thumbnail = 'http://wp.wp/wp-content/uploads/2012/06/dsc20050604_133440_34211.jpg';
+			$the_thumbnail = $the_thumbnail != '' ? $the_thumbnail : "<img alt='Nhập thông tin hình ảnh mới' width='${thumbnail_size["width"]}' height='${thumbnail_size["height"]}' src='${default_thumbnail}'>";
+			$the_date = get_the_time('d/m/Y');
 			$the_author_link = get_the_author();
 			$the_author = get_the_author();
 			$the_excerpt = get_the_excerpt();
-			$id = get_the_ID();
 			$taxs = get_post_taxonomies($id);
 			$tax_will_display = array('loai-san-pham', 'loai-cham-soc');
-			$categories = '';
+			$html_terms = '';
+			$list_term_name = array();
 			foreach ($taxs as $tax) {
 				if(in_array($tax, $tax_will_display)){
 					$terms = get_the_terms($id, $tax);
-					$category_text = array();
 					if($terms != false && count($terms) > 0){
 						foreach ($terms as $term) {
-							array_push($category_text, $term->name);
+							$link = get_site_url()."/".$tax."/".$term->slug."/";
+							$text = $term->name;
+							$html_link_term = "<a href='${link}'>${text}</a>";
+							array_push($list_term_name, $html_link_term);
 						}
 					}
-					$categories = $categories.join($category_text, "</span><span class='each-category'>");
 				}
 			}
-			echo $categories;
-			echo '<br/>';
-			echo '<br/>';
+			$html_terms = $html_terms.join($list_term_name, "</span><span class='each-category'>");
+			$html_terms = $html_terms != '' ? $html_terms : 'Chưa phân nhóm';
 
-			$content = $content."<article>
+			$content = $content."
+			<article class='each-post'>
+			${the_thumbnail}
 	<header class='entry-header'>
 	    <div class='entry-header-row'>
 	        <div class='entry-header-column'>
@@ -295,13 +302,14 @@
 	</header>
 	<!-- .entry-header -->
 	<div class='entry-meta'>
-	    <span class='posted-date'>Đăng vào lúc ${the_date}</span>
-	    <span class='posted-author'><span>Được đăng bởi: ${the_author}</span></span>
+	    <span class='posted-date'><i class='fas fa-camera-retro'></i>${the_date}</span>
+	    <span class='posted-author'><i class='fa fa-calendar-alt''></i>${the_author}</span>
+	    <span class='each-category'>${html_terms}</span>
 	</div>
 	<!-- .entry-meta -->
 	<div class='entry-summary'>
 	    <p>${the_excerpt}.</p>
-	    <p><a class='button' href='${the_permalink}' aria-label='Continue reading Scheduled'>Xem thêm →</a></p>
+	    <p><a class='button' href='${the_permalink}' aria-label='Continue reading Scheduled'>Đọc bài viết này</a></p>
 	</div>
 	<!-- .entry-summary -->
 	</article>";
@@ -315,35 +323,24 @@
 		return $content;
 	}
 	add_shortcode( 'newest_posts', 'create_newest_posts_shortcode' );
-	?>
 
+	/*
+	* Thêm CSS và JS cho site.
+	*/
+	add_action('wp_enqueue_scripts', 'vuongchau_enqueue_scripts');
 
+	function vuongchau_enqueue_scripts(){
+		wp_enqueue_style('vuongchau-style', get_stylesheet_directory_uri().'/assets/css/vuongchau-style.css');
+		wp_enqueue_script('vuongchau-script', get_stylesheet_directory_uri().'/assets/javascript/vuongchau-main.js');
+	}
 
+	/*
+	* Chỉnh excerpt thêm [...] ở cuối.
+	*/
+	add_filter('get_the_excerpt', 'filter_excerpt');
 
-	<?php
-	$str = '<article>
-	<header class="entry-header">
-	    <div class="entry-header-row">
-	        <div class="entry-header-column">
-	            <h2 class="entry-title"><a href="${the_permalink}">${the_post_name}</a></h2>
-	        </div>
-	        <!-- .entry-header-column -->
-	    </div>
-	    <!-- .entry-header-row -->
-	</header>
-	<!-- .entry-header -->
-	<div class="entry-meta">
-	    <span class="posted-date">${the_date}</span>
-	    <span class="posted-author"><a href="${the_author_link}" title="Được đăng bởi ${the_author}" rel="author">${the_author}</a></span>
-	    <span class="comments-number">
-			<a href="${the_permalink}#respond" class="comments-link">Bình luận bài viết này</a>
-		</span>
-	</div>
-	<!-- .entry-meta -->
-	<div class="entry-summary">
-	    <p>${the_excerpt}.</p>
-	    <p><a class="button" href="${the_permalink}" aria-label="Continue reading Scheduled">Xem thêm →</a></p>
-	</div>
-	<!-- .entry-summary -->
-	</article>';
+	function filter_excerpt($excerpt){
+		return $excerpt."  [...]";
+	}
+
 	?>
