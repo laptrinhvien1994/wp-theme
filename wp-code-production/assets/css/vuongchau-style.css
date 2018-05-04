@@ -1,7 +1,7 @@
 .each-post{
 	border-bottom: 1px solid #e8e8e8;
 	padding-bottom: 10px;
-	padding-top: 10px;
+	padding-top: 34px;
 }
 
 .each-post:first-child{
@@ -12,6 +12,15 @@
 	border-bottom: none;
 }
 
+.post-excerpt{
+	text-align: justify;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.entry-summary{
+	margin-top: 5px !important;
+}
 
 .entry-title{
 	font-family: 'Segoe UI' !important;
@@ -59,5 +68,12 @@
 @media only screen and (min-width: 61.063em){
 	.layout-two-column-default .content-area{
 		width: 69.44445% !important;
+	}
+}
+
+
+@media only screen and (max-width: 40.063em){
+	.entry-meta > span {
+		margin-right: 5px !important;
 	}
 }

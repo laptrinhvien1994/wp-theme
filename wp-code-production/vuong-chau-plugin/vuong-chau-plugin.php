@@ -302,13 +302,13 @@
 	</header>
 	<!-- .entry-header -->
 	<div class='entry-meta'>
-	    <span class='posted-date'><i class='fas fa-camera-retro'></i>${the_date}</span>
-	    <span class='posted-author'><i class='fa fa-calendar-alt''></i>${the_author}</span>
+	    <span class='posted-date'><i class='fl-button-icon fl-button-icon-before fa fa fa-chevron-right'></i>${the_date}</span>
+	    <span class='posted-author'>${the_author}</span>
 	    <span class='each-category'>${html_terms}</span>
 	</div>
 	<!-- .entry-meta -->
 	<div class='entry-summary'>
-	    <p>${the_excerpt}.</p>
+	    <p class='post-excerpt'>${the_excerpt}.</p>
 	    <p><a class='button' href='${the_permalink}' aria-label='Continue reading Scheduled'>Đọc bài viết này</a></p>
 	</div>
 	<!-- .entry-summary -->
