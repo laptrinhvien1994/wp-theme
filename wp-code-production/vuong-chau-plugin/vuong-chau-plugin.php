@@ -251,7 +251,7 @@
 			'orderby' => 'date'
 			);
 		
-		$content = '<h1>Các bài đăng mới nhất</h1><br/>';
+		$content = '<div class="vuongchau-title"><h2>Các bài viết mới nhất</h2></div>';
 		$posts = new WP_Query($args);
 		while($posts->have_posts()){
 			$posts->the_post();
@@ -260,10 +260,10 @@
 			$id = get_the_ID();
 			$the_post_name = get_the_title();
 			$the_permalink = get_the_permalink();
-			$thumbnail_size = array('width' => 400, 'height' => 400);
-			$the_thumbnail = get_the_post_thumbnail($id,array($thumbnail_size['width'], $thumbnail_size['height']),array('alt' => 'Nhập thông tin'));
+			$thumbnail_size = array('width' => 800, 'height' => 400);
+			$the_thumbnail = get_the_post_thumbnail($id,array($thumbnail_size['width'], $thumbnail_size['height']),array('alt' => 'mỹ phẩm nước hoa chính hãng'));
 			$default_thumbnail = 'http://wp.wp/wp-content/uploads/2012/06/dsc20050604_133440_34211.jpg';
-			$the_thumbnail = $the_thumbnail != '' ? $the_thumbnail : "<img alt='Nhập thông tin hình ảnh mới' width='${thumbnail_size["width"]}' height='${thumbnail_size["height"]}' src='${default_thumbnail}'>";
+			$the_thumbnail = $the_thumbnail != '' ? $the_thumbnail : "<img alt='mỹ phẩm nước hoa chính hãng' width='${thumbnail_size["width"]}' height='${thumbnail_size["height"]}' src='${default_thumbnail}'>";
 			$the_date = get_the_time('d/m/Y');
 			$the_author_link = get_the_author();
 			$the_author = get_the_author();
@@ -285,12 +285,13 @@
 					}
 				}
 			}
-			$html_terms = $html_terms.join($list_term_name, "</span><span class='each-category'>");
-			$html_terms = $html_terms != '' ? $html_terms : 'Chưa phân nhóm';
+			$html_terms = $html_terms.join($list_term_name, "</span><span class='each-category' title='Nhấp chọn để vào danh mục'>");
+			$html_terms = $html_terms != '' ? $html_terms : '<a href="javascript:void(0);" style="cursor:default;">Chưa phân nhóm</a>';
 
 			$content = $content."
 			<article class='each-post'>
-			${the_thumbnail}
+			<div class='thumbnail'>${the_thumbnail}</div>
+
 	<header class='entry-header'>
 	    <div class='entry-header-row'>
 	        <div class='entry-header-column'>
@@ -304,7 +305,7 @@
 	<div class='entry-meta'>
 	    <span class='posted-date'><i class='fl-button-icon fl-button-icon-before fa fa fa-chevron-right'></i>${the_date}</span>
 	    <span class='posted-author'>${the_author}</span>
-	    <span class='each-category'>${html_terms}</span>
+	    <span class='each-category' title='Nhấp chọn để vào danh mục'>${html_terms}</span>
 	</div>
 	<!-- .entry-meta -->
 	<div class='entry-summary'>
@@ -313,11 +314,6 @@
 	</div>
 	<!-- .entry-summary -->
 	</article>";
-
-
-
-
-
 		}
 		wp_reset_postdata();
 		return $content;

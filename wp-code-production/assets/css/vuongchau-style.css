@@ -22,19 +22,49 @@
 	margin-top: 5px !important;
 }
 
-.entry-title{
+.entry-title a{
 	font-family: 'Segoe UI' !important;
+	color: #355278 !important;
+}
+
+.thumbnail{
+
+}
+
+.thumbnail img{
+	border: 3px solid #8bc34a;
+	max-height: 350px;
 }
 
 .posted-date, .posted-author, .each-category{
-	border: 3px solid #8bc34a;
+	border: 3px solid #639a22;
 	border-left: 8px solid #8bc34a;
-	padding: 3px 10px;
+	/*border-right: 8px solid #8bc34a;*/
+	padding: 0px 7px;
 	text-transform: uppercase;
 	font-weight: bold;
 	display: inline-block !important;
 	margin-bottom: 10px;
 	margin-right: 5px;
+	font-size: 12px;
+	font-weight: bold !important;
+	font-family: 'Segoe UI';
+}
+
+.each-category{
+	padding: 0px;
+}
+
+.each-category a{
+	color: green;
+	padding: 0px 7px;
+	display: inline-block;
+}
+
+
+.each-category a:hover{
+	background-color: #336704;
+	color: white;
 }
 
 .button{
@@ -76,4 +106,16 @@
 	.entry-meta > span {
 		margin-right: 5px !important;
 	}
+}
+
+
+/*CSS RIENG*/
+.vuongchau-title{
+	border-bottom: 1px solid #ccc;
+}
+
+.vuongchau-title h2{
+	font-family: 'Segoe UI' !important;
+	text-transform: uppercase;
+	margin-bottom: 5px;
 }
