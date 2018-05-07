@@ -134,32 +134,27 @@
 				);
 		}
 
-		$posts = get_posts($args);
+		$posts = new WP_Query($args);
 
 		//loop through
 		$content = '';
-		$count = count($posts);
-		if($count > 0){
-			foreach($posts as $post){
-				$content = $content.'<div>';
+		while($posts->have_posts()){
+			$posts->the_post();
+			$id = get_the_ID();
+			$the_post_name = VuongChauHelper::substring(get_the_title(), 60);
+			$the_permalink = get_the_permalink();
+			$thumbnail_size = array('width' => 100, 'height' => 100);
+			$the_thumbnail = get_the_post_thumbnail($id,array($thumbnail_size['width'], $thumbnail_size['height']),array('alt' => 'mỹ phẩm nước hoa chính hãng'));
+			$default_thumbnail = 'http://javascript.com:7878/wp-content/uploads/2018/02/marguerite-729510_960_720-768x499.jpg';
+			$the_thumbnail = $the_thumbnail != '' ? $the_thumbnail : "<img alt='mỹ phẩm nước hoa chính hãng' width='${thumbnail_size["width"]}' height='${thumbnail_size["height"]}' src='${default_thumbnail}'>";
 
-		        //get thumbnail
-				$thumbnail = get_the_post_thumbnail($post, array('100, 100'));
-				$content = $content.$thumbnail;
-
-		        //get link
-				$url = get_site_url()."/".$post->post_name;
-				$title =  VuongChauHelper::substring($post->post_title,30);
-				$content = $content.'<span><a href="'.$url.'">'.$title.'</a></span>';
-				$content = $content.'</div>';
-			}
-
-		//       //show "Xem thêm" button.
-			// if($count == $post_number){
-			// 	$url = get_site_url();
-			// 	$content = $content.'<div><a href="'.$url.'">Xem thêm<a/></div>';
-			// }
+			$content = $content."
+			<article class='vuongchau-each-post-sidebar'>
+				<span class='vuongchau-thumbnail-sidebar'>${the_thumbnail}</span>
+				<span class='vuongchau-thumbnail-post-title'><a href='${the_permalink}'>${the_post_name}</a></span>
+			</article>";
 		}
+		wp_reset_postdata();
 		return $content;
 	}
 	add_shortcode( 'show_related_posts', 'create_show_related_posts_shortcode' );
@@ -292,28 +287,28 @@
 			<article class='each-post'>
 			<div class='thumbnail'>${the_thumbnail}</div>
 
-	<header class='entry-header'>
-	    <div class='entry-header-row'>
-	        <div class='entry-header-column'>
-	            <h2 class='entry-title'><a href='${the_permalink}'>${the_post_name}</a></h2>
-	        </div>
-	        <!-- .entry-header-column -->
-	    </div>
-	    <!-- .entry-header-row -->
-	</header>
-	<!-- .entry-header -->
-	<div class='entry-meta'>
-	    <span class='posted-date'><i class='fl-button-icon fl-button-icon-before fa fa fa-chevron-right'></i>${the_date}</span>
-	    <span class='posted-author'>${the_author}</span>
-	    <span class='each-category' title='Nhấp chọn để vào danh mục'>${html_terms}</span>
-	</div>
-	<!-- .entry-meta -->
-	<div class='entry-summary'>
-	    <p class='post-excerpt'>${the_excerpt}.</p>
-	    <p><a class='button' href='${the_permalink}' aria-label='Continue reading Scheduled'>Đọc bài viết này</a></p>
-	</div>
-	<!-- .entry-summary -->
-	</article>";
+			<header class='entry-header'>
+			    <div class='entry-header-row'>
+			        <div class='entry-header-column'>
+			            <h2 class='entry-title'><a href='${the_permalink}'>${the_post_name}</a></h2>
+			        </div>
+			        <!-- .entry-header-column -->
+			    </div>
+			    <!-- .entry-header-row -->
+			</header>
+			<!-- .entry-header -->
+			<div class='entry-meta'>
+			    <span class='posted-date'><i class='fl-button-icon fl-button-icon-before fa fa fa-chevron-right'></i>${the_date}</span>
+			    <span class='posted-author'>${the_author}</span>
+			    <span class='each-category' title='Nhấp chọn để vào danh mục'>${html_terms}</span>
+			</div>
+			<!-- .entry-meta -->
+			<div class='entry-summary'>
+			    <p class='post-excerpt'>${the_excerpt}.</p>
+			    <p><a class='button' href='${the_permalink}' aria-label='Continue reading Scheduled'>Đọc bài viết này</a></p>
+			</div>
+			<!-- .entry-summary -->
+			</article>";
 		}
 		wp_reset_postdata();
 		return $content;
