@@ -122,8 +122,7 @@
 
 .vuongchau-each-post-sidebar{
 	display: flex;
-	border-bottom: 1px solid #ccc;
-	border-left: 2px solid green;
+	border-bottom: 1px solid #e8e8e8;
 	padding: 5px 0px;
 	padding-left: 5px;
 }
@@ -149,4 +148,60 @@
 .vuongchau-thumbnail-post-title a{
 	color: green !important;
 	word-wrap: ;
+}
+
+#secondary{
+	border: 1px solid #e8e8e8;	
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+#secondary .widget-title{
+	padding-left: 5px;
+}
+
+#content{
+	max-width: 1200px;
+}
+
+
+/*CSS TRANG CHUYEN MUC*/
+.vuongchau-chuyenmuc-title, .vuongchau-chuyenmuc-item{
+	font-family: 'Segoe UI';
+}
+.vuongchau-chuyenmuc-title{
+	font-size: 30px;
+	text-decoration: underline;
+}
+
+.vuongchau-chuyenmuc-ul{
+	list-style: none;
+	padding-left: 0px;
+}
+
+.vuongchau-chuyenmuc-item{
+	background-image: url('http://data.chungcu123.com.vn/uploads/chungcu123.com.vn/1/ICON/la%20trong%20suot.png');
+	background-repeat: no-repeat;
+    background-size: 30px 30px;
+    padding-left: 30px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.vuongchau-chuyenmuc-item a{
+	color: #5c635e !important;
+}
+
+.vuongchau-chuyenmuc-item a:hover{
+	color: #01920d !important;
+}
+
+.vuongchau-chuyenmuc-item-postcount{
+	color: #01920d;
+	font-weight: 500;
+}
+
+#vuongchau-chuyenmuc-content{
+	padding-left: 10px;
+	padding-right: 10px;
 }
