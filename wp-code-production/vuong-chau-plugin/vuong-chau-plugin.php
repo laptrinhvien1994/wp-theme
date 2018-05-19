@@ -209,7 +209,8 @@
 				$title = 'Bài viết hay nhất';	
 			}
 		}
-		$title = '<span style="color: green;">'.$title.'</span>';
+		$title = '<span style="border-bottom: 5px double #0b9416; font-family: \'Seoge UI\'; text-transform: uppercase;
+		color: #0b9416">'.$title.'</span>';
 		return $title;
 	}
 
